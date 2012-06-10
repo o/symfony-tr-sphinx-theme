@@ -1,75 +1,106 @@
-<div class="main_content">
-    <div class="box_columns clear_fix">
-        <div class="column_01">
-            <div class="submenu">
-                <ul class="list_submenu">
-                    <li{% if 'index' == pagename %} class="selected"{% endif %}><a href="{{ pathto('index') }}">Documentation</a></li>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <!--[if lt IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-                    {% if hasdoc('book/index') %}
-                    <li{% if 'book' in pagename and 'cookbook' not in pagename %} class="selected"{% endif %}><a href="{{ pathto('book/index') }}">The Book</a></li>
-                    {% endif %}
-                    {% if hasdoc('cookbook/index') %}
-                    <li{% if 'cookbook' in pagename %} class="selected"{% endif %}><a href="{{ pathto('cookbook/index') }}">The Cookbook</a></li>
-                    {% endif %}
-                    {% if hasdoc('components/index') %}
-                    <li{% if 'components' in pagename %} class="selected"{% endif %}><a href="{{ pathto('components/index') }}">The Components</a></li>
-                    {% endif %}
-                    {% if hasdoc('reference/index') %}
-                    <li{% if 'reference' in pagename %} class="selected"{% endif %}><a href="{{ pathto('reference/index') }}">Reference</a></li>
-                    {% endif %}
-                    {% if hasdoc('glossary') %}
-                    <li{% if 'glossary' == pagename %} class="selected"{% endif %}><a href="{{ pathto('glossary') }}">Glossary</a></li>
-                    {% endif %}
+    <title>{{ title }} - Symfony Türkçe Dökümantasyonu</title>
 
-                    <li{% if 'genindex' == pagename %} class="selected"{% endif %}><a href="{{ pathto('genindex') }}">Index</a></li>
+    <link rel="stylesheet" href="http://symfony.com/css/compiled/all.css?v=2"/>
+    <script type="text/javascript" src="http://symfony.com/js/all.js?v=2"></script>
 
-                    {% if hasdoc('bundles/index') %}
-                    <li{% if 'bundles' in pagename %} class="selected"{% endif %}><a href="{{ pathto('bundles/index') }}">Bundles</a></li>
-                    {% endif %}
-                    {% if hasdoc('contributing/index') %}
-                    <li{% if 'contributing' in pagename %} class="selected"{% endif %}><a href="{{ pathto('contributing/index') }}">Contributing</a></li>
-                    {% endif %}
+    <!--[if IE 6]>
+    <script src="http://symfony.com/js/common/DD_belatedPNG_0.0.7a-min.js" type="text/javascript"></script>
+    <script src="http://symfony.com/js/common/ExtendDD_belatedPNG_0.0.7a.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('.png_fix');
+    </script>
+    <![endif]-->
+</head>
 
-                </ul>
-            </div>
+<body>
 
-            {% if display_toc %}
-            <div class="toc">
-                <h2 class="title_05">Table of Contents</h2>
+<div class="container">
 
-                <div class="toc-content">
-                    {{ toc }}
+    <div class="main_content">
+        <div class="box_columns clear_fix">
+            <div class="column_01">
+            
+                <div class="submenu">
+                    <ul class="list_submenu">
+                        {{ toctree(maxdepth=1) }}
+                    </ul>
                 </div>
-            </div>
-            {% endif %}
 
-        </div>
-        <div class="column_02">
-            <div class="box_title">
-                <h1 class="title_01">{{ title }}</h1>
-            </div>
+                {% if display_toc %}
+                <div class="toc">
+                    <h2 class="title_05">Table of Contents</h2>
 
-
-            <div class="box_article doc_page">
-                {% block body %}{% endblock %}
-            </div>
-
-            {% if prev or next %}
-            <div class="navigation">
-                {% if prev %}
-                    <a href="{{ prev.link|e }}">&laquo;&nbsp;{{ prev.title }}</a>
+                    <div class="toc-content">
+                        {{ toc }}
+                    </div>
+                </div>
                 {% endif %}
-                <span class="separator">|</span>
-                {% if next %}
-                    <a href="{{ next.link|e }}">{{ next.title }}&nbsp;&raquo;</a>
+
+            </div>
+            <div class="column_02">
+            
+                <div class="box_title">
+                    <h1 class="title_01">{{ title }}</h1>
+                </div>
+
+                <div class="box_article doc_page">
+                    {% block body %}{% endblock %}
+                </div>
+
+                {% if prev or next %}
+                <div class="navigation">
+                    {% if prev %}
+                        <a href="{{ prev.link|e }}">&laquo;&nbsp;{{ prev.title }}</a>
+                    {% endif %}
+                    <span class="separator">|</span>
+                    {% if next %}
+                        <a href="{{ next.link|e }}">{{ next.title }}&nbsp;&raquo;</a>
+                    {% endif %}
+                </div>
+
+                <div class="box_hr">
+                    <hr/>
+                </div>
                 {% endif %}
-            </div>
 
-            <div class="box_hr">
-                <hr/>
             </div>
-            {% endif %}
-
         </div>
     </div>
+
 </div>
+
+<script type="text/javascript">
+    $(function() {
+
+        rebuild = function(name) {
+            $('div.admonition.' + name).each(function() {
+                body = '<div class="' + name + '"></div><div class="admonition admonition-' + name + '">' + $(this).html() + '</div>';
+                $(this).removeClass(name).removeClass('admonition').addClass('admonition-wrapper').html(body);
+            });
+        }
+
+        rebuild('tip');
+        rebuild('note');
+        rebuild('caution');
+        rebuild('seealso');
+
+        $('div.sidebar').each(function() {
+            body = '<div class="sidebar"></div><div class="admonition admonition-' + name + '">' + $(this).html() + '</div>';
+            $(this).removeClass('sidebar').addClass('admonition-wrapper').html(body);
+        });
+
+    });
+</script>
+
+</body>
+</html>
