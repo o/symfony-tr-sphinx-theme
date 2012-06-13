@@ -2,32 +2,15 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <!--[if lt IE 9]>
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
-    <![endif]-->
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
     <title>{{ title }} - Symfony Türkçe Belgeleri</title>
-
     <link rel="stylesheet" href="http://symfony.com/css/compiled/all.css?v=2"/>
     <link rel="stylesheet" href="/assets/symfony-tr.css"/>
     <script type="text/javascript" src="http://symfony.com/js/all.js?v=2"></script>
     <script type="text/javascript" charset="utf-8">var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-32569582-1"]);_gaq.push(["_trackPageview"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})()</script>
-
-    <!--[if IE 6]>
-    <script src="http://symfony.com/js/common/DD_belatedPNG_0.0.7a-min.js" type="text/javascript"></script>
-    <script src="http://symfony.com/js/common/ExtendDD_belatedPNG_0.0.7a.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        DD_belatedPNG.fix('.png_fix');
-    </script>
-    <![endif]-->
 </head>
-
 <body>
-
 <div class="container">
-
     <div id="header">
         <h1 class="title_01">Symfony 2 Türkçe Belgeleri</h1>
         <ul id="navbar" class="clear_fix">
@@ -36,38 +19,30 @@
             <li><a href="https://groups.google.com/group/symfony-2-tr">E-Posta Listesi</a></li>
         </ul>
     </div>
-
     <div class="main_content">
         <div class="box_columns clear_fix">
             <div class="column_01">
-            
                 <div class="submenu">
                     <ul class="list_submenu">
                         {{ toctree(maxdepth=1) }}
                     </ul>
                 </div>
-
                 {% if display_toc %}
                 <div class="toc">
                     <h2 class="title_05">İçindekiler</h2>
-
                     <div class="toc-content">
                         {{ toc }}
                     </div>
                 </div>
                 {% endif %}
-
             </div>
             <div class="column_02">
-            
                 <div class="box_title">
                     <h1 class="title_01">{{ title }}</h1>
                 </div>
-
                 <div class="box_article doc_page">
                     {% block body %}{% endblock %}
                 </div>
-
                 {% if prev or next %}
                 <div class="navigation">
                     {% if prev %}
@@ -78,40 +53,31 @@
                         <a href="{{ next.link|e }}">{{ next.title }}&nbsp;&raquo;</a>
                     {% endif %}
                 </div>
-
                 <div class="box_hr">
                     <hr/>
                 </div>
                 {% endif %}
-
             </div>
         </div>
     </div>
-
 </div>
-
 <script type="text/javascript">
     $(function() {
-
         rebuild = function(name) {
             $('div.admonition.' + name).each(function() {
                 body = '<div class="' + name + '"></div><div class="admonition admonition-' + name + '">' + $(this).html() + '</div>';
                 $(this).removeClass(name).removeClass('admonition').addClass('admonition-wrapper').html(body);
             });
         }
-
         rebuild('tip');
         rebuild('note');
         rebuild('caution');
         rebuild('seealso');
-
         $('div.sidebar').each(function() {
             body = '<div class="sidebar"></div><div class="admonition admonition-' + name + '">' + $(this).html() + '</div>';
             $(this).removeClass('sidebar').addClass('admonition-wrapper').html(body);
         });
-
     });
 </script>
-
 </body>
 </html>
